@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ManjuController {
     @RequestMapping("/manju")
     String index(){
-        return " Wellcome Hello All Good Morning!";
+        return " Welcome Hello All Good Morning!";
     }
 }
