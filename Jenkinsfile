@@ -25,7 +25,7 @@ agent any
     
     stage ('Deploy') {
       steps {
-        sh '"target/spring-boot-web-0.0.1-SNAPSHOT.jar" &'
+        sh "target/spring-boot-web-0.0.1-SNAPSHOT.jar"
       }
     }
     
