@@ -29,7 +29,13 @@ agent any
       }
     }
     
-    
+    stage ('Upload') {
+     
+      steps { 
+       
+        sh 'curl -X PUT -u admin:password -T target/spring-boot-web-0.0.1-SNAPSHOT.jar "http://54.184.204.51:8081/artifactory/libs-snapshot-local/spring-boot-web-0.0.1-SNAPSHOT.jar" '
+      }
+    }
  
           
           
