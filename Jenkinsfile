@@ -1,40 +1,43 @@
 pipeline {
  environment {
-  registry = 'dmanjunath03333/node-todo-frontend'
+ 
+  registry = 'dmanjunath03333 / spring_boot_app'
   registryCredential = 'dockerhub'
   dockerImage = ''
- containerId = sh(script: 'docker ps -aqf "name=node-app"', returnStdout:true)
+  containerId = sh(script: 'docker ps -aqf "name=chat-app"', returnStdout: true)
  }
  agent any
  tools {
-  nodejs "node"
+  maven 'maven'
  }
 
  stages {
-  /*stage('Cloning project') {
-   git 'https://github.com/gustavoapolinario/node-todo-frontend'
-  }*/
+
   stage('Build') {
    steps {
-    sh 'npm install'
+    sh "mvn clean package"
    }
   }
-  stage('Test') {
+  stage('UnitTest') {
    steps {
-    sh 'npm test'
+    sh "mvn test"
+   }
+   
    }
   }
-  stage('Building image') {
+
+ stage('Building image') {
    steps {
     script {
      dockerImage = docker.build registry + ":$BUILD_NUMBER"
     }
    }
   }
+
+  
   stage('Run Container') {
    steps {
-    
-    sh 'docker run --name=node-app"$BUILD_NUMBER" -d -p 3000:3000 $registry:$BUILD_NUMBER &'
+    sh 'docker run --name=chat-app -d -p 5000:8080 $registry:$BUILD_NUMBER &'
    }
   }
   stage('push image') {
