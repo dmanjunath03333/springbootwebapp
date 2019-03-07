@@ -18,13 +18,14 @@ pipeline {
     sh "mvn clean package"
    }
   }
+  
   stage('UnitTest') {
    steps {
     sh "mvn test"
    }
    
    }
-  }
+  
 
  stage('Building image') {
    steps {
@@ -40,6 +41,7 @@ pipeline {
     sh 'docker run --name=chat-app -d -p 5000:8080 $registry:$BUILD_NUMBER &'
    }
   }
+ 
   stage('push image') {
    steps {
     script {
